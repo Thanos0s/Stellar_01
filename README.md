@@ -1,4 +1,4 @@
-#Stellar Split Bill Calculator
+**Stellar Split Bill Calculator**
 
 A simple Stellar Testnet dApp that connects a Freighter wallet, displays the connected account's XLM balance, calculates an equal bill split among a group, and sends the resulting XLM payment on-chain — with clear success/failure feedback.
 
@@ -100,8 +100,9 @@ Watch the status change from Transaction Pending to Transaction Successful, with
 
 
 
-#Screenshots
-##level_01 screenshots folder
+**Screenshots**
+
+**level_01 screenshots folder**
 
 
 
