@@ -1,70 +1,128 @@
-# Getting Started with Create React App
+Stellar Split Bill Calculator
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A simple Stellar Testnet dApp that connects a Freighter wallet, displays the connected account's XLM balance, calculates an equal bill split among a group, and sends the resulting XLM payment on-chain — with clear success/failure feedback.
 
-## Available Scripts
+Built for Level 1 – White Belt: connecting a wallet, funding it, reading a balance, and sending a testnet transaction.
 
-In the project directory, you can run:
 
-### `npm start`
+Project Description
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Splitting a bill with friends usually takes two separate steps: figuring out who owes what, and then actually sending the money. Stellar Split Bill Calculator combines both into one flow on the Stellar network:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+Connect your Freighter wallet (Stellar Testnet).
+View your connected address and current XLM balance.
+Enter the total bill amount and the number of people splitting it.
+Enter the recipient's Stellar address.
+Click Calculate & Send Payment — the app calculates the per-person share and submits an XLM payment transaction via Freighter.
+See the transaction go from pending to a final success state, along with the transaction hash.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+Features
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+🔗 Connect / disconnect a Freighter wallet
+💰 Live XLM balance display, fetched from Stellar Testnet
+🧮 Automatic bill-split calculation (total ÷ number of people)
+💸 On-chain XLM payment via the Stellar SDK, signed in Freighter
+✅ Real-time transaction status: pending → success/failure, with transaction hash shown to the user
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+Tech Stack
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+React (frontend)
+Freighter Wallet + @stellar/freighter-api
+@stellar/stellar-sdk (building/submitting payment transactions)
+Stellar Testnet Horizon API (https://horizon-testnet.stellar.org)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+Setup Instructions (Run Locally)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Prerequisites
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+Node.js v16 or later and npm
+Freighter Wallet browser extension installed
+A Freighter wallet account switched to Test Net (Freighter settings → Network → Test Net)
+Some testnet XLM in that account (use Friendbot to fund it if the balance is 0)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
+1. Clone the repository
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+bashgit clone https://github.com/<your-username>/<your-repo-name>.git
+cd <your-repo-name>
 
-### Making a Progressive Web App
+2. Install dependencies
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+bashnpm install
 
-### Advanced Configuration
+3. Configure environment (if applicable)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+If the project uses a .env file for network configuration, create one in the root directory:
 
-### Deployment
+bashREACT_APP_STELLAR_NETWORK=TESTNET
+REACT_APP_HORIZON_URL=https://horizon-testnet.stellar.org
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `npm run build` fails to minify
+If your project has network settings hard-coded in a config file instead, note that here and skip this step.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+4. Start the app
+
+bashnpm start
+
+The app will run locally at:
+
+http://localhost:3000
+
+(adjust the port to whatever your app actually uses, e.g. 3002)
+
+5. Connect your wallet
+
+
+Open the app in your browser.
+Click Connect Wallet.
+Approve the connection request in the Freighter popup.
+Your connected address and XLM balance will appear.
+
+
+6. Try a split payment
+
+
+Enter a total bill amount and number of people.
+Enter a recipient Stellar testnet address.
+Click Calculate & Send Payment.
+Approve the transaction in the Freighter popup.
+Watch the status change from Transaction Pending to Transaction Successful, with the transaction hash displayed.
+
+
+
+Screenshots
+level_01 screenshots folder
+
+
+
+Project Structure (example)
+
+├── src/
+│   ├── components/
+│   │   ├── WalletConnect.js
+│   │   ├── BalanceDisplay.js
+│   │   ├── SplitCalculator.js
+│   │   └── TransactionResult.js
+│   ├── utils/
+│   │   └── stellar.js        # Horizon/network config, payment builder
+│   └── App.js
+├── screenshots/
+├── package.json
+└── README.md
+
+Notes
+
+
+This app runs entirely against the Stellar Testnet — no real funds are used.
+If your Freighter account shows a 0 balance, fund it using Friendbot.
+Transaction hashes can be looked up on Stellar Expert (Testnet).
